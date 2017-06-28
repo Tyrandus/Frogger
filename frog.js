@@ -33,7 +33,9 @@ Frog.prototype.update = function() {
 // Show the frog in the game window.
 Frog.prototype.show = function() {
   fill(0, 255, 0, 200);
-  rect(this.x, this.y, this.w, this.h);
+  image(assets.frog, this.x, this.y, this.w, this.h);
+}
+
 // Moves this rectangle by the provided x and y distances.
 Frog.prototype.move = function(x, y) {
   this.x += x;

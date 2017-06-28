@@ -14,13 +14,15 @@
  * inverted: Represents if the frog dies when hit by an obstacle (false)
  *           or if the frog dies when not hit by an obstacle (true)
  */
-function Row(y, count, speed, obs_width, spacing, offset, inverted) {
+function Row(y, count, speed, obs_width, spacing, offset, inverted, type) {
   Rectangle.call(this, 0, y, width, grid_size);
+  this.y = y;
   this.obstacles = [];
   this.inverted = inverted;
+  this.type = type;
   for(var i = 0; i < count; i++) {
     var x = i * spacing + offset;
-    this.obstacles.push(new Obstacle(x, y, obs_width, grid_size, speed));
+    this.obstacles.push(new Obstacle(x, y, obs_width, grid_size, speed, inverted));
   }
 }
 
@@ -29,6 +31,17 @@ Row.prototype = Object.create(Rectangle.prototype);
 
 // Shows this Row, showing all obstacles on it.
 Row.prototype.show = function() {
+  switch (this.type) {
+    case STREET:
+      fill(20);
+      rect(0, this.y, width, grid_size);
+      break;
+    case RIVER:
+      fill(0, 0, 50)
+      rect(0, this.y, width, grid_size);
+      break;
+  }
+
   for(var i = 0; i < this.obstacles.length; i++) {
     this.obstacles[i].show();
   }

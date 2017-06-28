@@ -11,9 +11,21 @@
  * h: Obstacle height
  * s: x speed of the obstacle
  */
-function Obstacle(x, y, w, h, s) {
+function Obstacle(x, y, w, h, s, i) {
   Rectangle.call(this, x, y, w, h);
   this.speed = s;
+  this.inverted = i;
+
+  const CARS = false;
+  const LOGS = true;
+
+  if (this.inverted === CARS) {
+    this.textureIndex = floor(random(assets.cars[0].number))
+    this.texture = s > 0 ? assets.cars[0].right[this.textureIndex]
+                         : assets.cars[0].left[this.textureIndex]
+  } else if (this.inverted === LOGS) {
+    this.texture = assets.log
+  }
 }
 
 // Extend Rectangle
@@ -33,5 +45,10 @@ Obstacle.prototype.update = function() {
 // Display this obstacle.
 Obstacle.prototype.show = function() {
   fill(200);
-  rect(this.x, this.y, this.w, this.h);
+  var it = Math.floor(this.w/grid_size);
+
+  for (var i = 0; i < it; i++) {
+    image(this.texture, this.x + i * grid_size, this.y, grid_size, this.h);
+  }
+
 }
