@@ -34,4 +34,9 @@ Frog.prototype.update = function() {
 Frog.prototype.show = function() {
   fill(0, 255, 0, 200);
   rect(this.x, this.y, this.w, this.h);
+// Moves this rectangle by the provided x and y distances.
+Frog.prototype.move = function(x, y) {
+  this.x += x;
+  if ((this.y >= grid_size || y > 0)
+    && (this.y < height - grid_size || y < 0)) this.y += y;
 }
